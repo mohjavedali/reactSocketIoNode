@@ -6,8 +6,9 @@ const socketIO = require("socket.io");
 const app = express();
 const port = 4500 || process.env.port;
 
-app.use(cors());
+const users = [{}];
 
+app.use(cors());
 app.get("/", (req,res)=>{
     res.send("Hiiiiiiiiiiiiiiiii");
 })
@@ -17,9 +18,22 @@ const io = socketIO(server);
 
 io.on("connection", (socket)=>{
     console.log("New connection is working.");
+
     socket.on("joined",({user})=>{
+        users[socket.id] = user;
         console.log(`${user} has joined.`);
+        socket.broadcast.emit('userJoined',{user:"Admin", message:`${users[socket.id]} User has joined`});
+        socket.emit('welcome', {user:"Admin", message:`welcome to the chat, ${users[socket.id]}`})
+    });
+    socket.on('message',({message,id})=>{
+        io.emit('sendMessage',{user:users[id], message,id});
     })
+    socket.on('disconnect',()=>{
+        socket.broadcast.emit('leave', {user:"Admin", message:`User has left`});
+        console.log(`User Left, ${users[socket.id]} `);
+    })
+
+
 })
 
 server.listen(port,()=>{
