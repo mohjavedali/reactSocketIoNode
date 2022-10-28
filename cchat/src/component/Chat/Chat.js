@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import {user} from "../Join/Join";
 import socketIO from "socket.io-client";
 import "./Chat.css";
-import sendLogo from "../../images/send.png"
+import sendLogo from "../../images/send.png";
+import closeIcon from "../../images/closeIcon.png";
 import Message from '../Message/Message';
 import ReactScrollToBoottome from "react-scroll-to-bottom";
 
@@ -62,7 +63,10 @@ const Chat = () => {
   return (
     <div className='chatPage'>
         <div className='chatContainer'>
-            <div className='header'></div>
+            <div className='header'>
+              <h2>C CHAT</h2>
+              <a href='/'><img src={closeIcon} alt="close"/></a>
+            </div>
             <ReactScrollToBoottome className='chatBox'>
               {messages.map((item, i)=> <Message user={item.id===id?'':item.user} message={item.message} classs={item.id===id?'right':'left'}/>)}
             </ReactScrollToBoottome>
