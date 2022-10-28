@@ -31,7 +31,6 @@
     cursor: pointer;
 }
 .chatBox{
-    border: 0.2vmax solid black;
     height: 70%;
     box-sizing: border-box;
 }
@@ -49,7 +48,7 @@
     outline: none;
     font-size: 1.2vmax;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-top: 0.2vmax solid black;
+    border: 0.2vmax solid black;
 }
 .sendBtn{
     background-color: crimson;
